@@ -166,14 +166,24 @@ with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/resume.png", width=64)
     st.title("Settings & Config")
     
-    # API Key Input
-    env_api_key = os.getenv("GROQ_API_KEY", "")
+    # API Key Resolution (Supports Streamlit Cloud Secrets, .env, and direct sidebar input)
+    def get_configured_api_key():
+        try:
+            if "GROQ_API_KEY" in st.secrets and st.secrets["GROQ_API_KEY"]:
+                return st.secrets["GROQ_API_KEY"]
+        except Exception:
+            pass
+        return os.getenv("GROQ_API_KEY", "")
+
+    env_api_key = get_configured_api_key()
     api_key_input = st.text_input(
         "Groq API Key",
         value=env_api_key,
         type="password",
-        help="Get your free API key at https://console.groq.com/keys"
+        help="Get your free API key at https://console.groq.com/keys. When hosted on Streamlit Cloud, you can also store this under App Secrets."
     )
+    if env_api_key:
+        st.caption("🔒 *API Key detected from environment / Streamlit Secrets*")
     
     # Model Selection
     model_options = [
@@ -252,7 +262,7 @@ if uploaded_file is not None:
             active_api_key = api_key_input.strip() or env_api_key.strip()
             
             if not active_api_key:
-                st.error("⚠️ Please provide a valid Groq API Key in the sidebar or via .env file to proceed.")
+                st.error("⚠️ Please provide a valid Groq API Key in the sidebar, via Streamlit Secrets, or in your .env file to proceed.")
             elif not resume_text.strip():
                 st.error("⚠️ Could not extract any readable text from the uploaded PDF. Please verify the file is not scanned or empty.")
             else:

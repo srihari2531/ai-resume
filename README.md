@@ -51,12 +51,16 @@ flowchart TD
 
 ```text
 ai resume/
-├── .venv/               # Python virtual environment
-├── .env                 # (Optional) Environment variables for GROQ_API_KEY
-├── .env.example         # Template for environment variables
-├── requirements.txt     # Python dependencies
-├── main.py              # Main Streamlit application
-└── README.md            # Comprehensive documentation
+├── .streamlit/
+│   ├── config.toml            # Streamlit theme & server configuration
+│   └── secrets.toml.example   # Secrets template for Streamlit Cloud
+├── .venv/                     # Python virtual environment
+├── .env                       # (Optional) Local environment variables for GROQ_API_KEY
+├── .env.example               # Template for environment variables
+├── .gitignore                 # Git ignore file for secrets and cache
+├── requirements.txt           # Python dependencies for local & cloud
+├── main.py                    # Main Streamlit application
+└── README.md                  # Comprehensive documentation
 ```
 
 ---
@@ -128,6 +132,38 @@ The app will open automatically in your default browser at `http://localhost:850
    - Review each of the 6 structured assessment sections.
    - Check your ATS score and action checklist.
    - Copy or download the refined resume in Markdown format.
+
+---
+
+---
+
+## ☁️ Deploying to Streamlit Community Cloud (Free Tier)
+
+You can host this application completely free of charge on **Streamlit Community Cloud**:
+
+### Step 1: Push Project to GitHub
+1. Stage and commit all files:
+   ```bash
+   git add .
+   git commit -m "feat: configure for streamlit cloud deployment"
+   ```
+2. Push your repository to your GitHub account:
+   ```bash
+   git push origin main
+   ```
+
+### Step 2: Deploy on Streamlit Cloud
+1. Sign in to [share.streamlit.io](https://share.streamlit.io/) using your GitHub account.
+2. Click **"New app"**.
+3. Select your repository: `<your-username>/ai-resume`.
+4. Set the **Main file path** to: `main.py`.
+5. Under **Advanced settings** -> **Secrets**, paste your Groq API key:
+   ```toml
+   GROQ_API_KEY = "gsk_your_actual_groq_api_key_here"
+   ```
+6. Click **Deploy!** 🚀
+
+Your app will be live with a shareable public URL in under 2 minutes.
 
 ---
 
