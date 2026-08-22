@@ -1,17 +1,80 @@
-# Byte-compiled / optimized / Python cache files
+# ==========================================
+# Byte-compiled / optimized / Python cache
+# ==========================================
 __pycache__/
 *.py[cod]
 *$py.class
 *.pyc
+*.pyo
+*.pyd
 
-# C extensions
-*.so
+# ==========================================
+# Virtual Environments
+# ==========================================
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+.env/
 
-# Distribution / packaging
-.Python
+# ==========================================
+# Environment Variables & Secrets (CRITICAL)
+# ==========================================
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# ==========================================
+# Streamlit Configuration & Secrets
+# ==========================================
+# Keep config.toml and secrets.toml.example tracked, ignore actual secrets
+.streamlit/secrets.toml
+!.streamlit/config.toml
+!.streamlit/secrets.toml.example
+
+# ==========================================
+# Temporary, Log, and Scratch Files
+# ==========================================
+*.log
+scratch/
+temp/
+tmp/
+uploads/
+*.tmp
+
+# ==========================================
+# IDEs and Editors
+# ==========================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ==========================================
+# OS Generated Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Packaging & Distribution
+# ==========================================
 build/
-develop-eggs/
 dist/
+develop-eggs/
 downloads/
 eggs/
 .eggs/
@@ -26,65 +89,3 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
-# Virtual Environments
-.venv/
-venv/
-ENV/
-env/
-env.bak/
-venv.bak/
-.env/
-
-# Environment variables & secrets
-.env
-.env.local
-.env.*.local
-*.env
-!.env.example
-
-# Streamlit
-.streamlit/secrets.toml
-!.streamlit/config.toml
-!.streamlit/secrets.toml.example
-
-# Testing & Coverage
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-htmlcov/
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints
-
-# IDEs and Editors
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-*.swp
-*.swo
-*~
-
-# Operating System files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
-
-# Temporary data / logs / uploads
-*.log
-scratch/
-temp/
-tmp/
-uploads/

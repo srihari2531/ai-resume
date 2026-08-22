@@ -9,8 +9,10 @@ from dotenv import load_dotenv
 # pyrefly: ignore [missing-import]
 from groq import Groq
 
-# Load environment variables from .env if present
+# Load environment variables from .env or .venv/.env if present
 load_dotenv()
+if not os.getenv("GROQ_API_KEY") and os.path.exists(os.path.join(".venv", ".env")):
+    load_dotenv(os.path.join(".venv", ".env"))
 
 # Page Configuration
 st.set_page_config(
@@ -162,7 +164,11 @@ Please perform the full 6-pillar analysis and provide the refined resume version
         max_tokens=4096,
     )
     
-    return completion.choices[0].message.content
+    raw_content = completion.choices[0].message.content or ""
+    # Strip <think>...</think> tags if present in reasoning models
+    import re
+    cleaned_content = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL).strip()
+    return cleaned_content if cleaned_content else raw_content
 
 
 # --- SIDEBAR CONFIGURATION ---
@@ -191,11 +197,10 @@ with st.sidebar:
     
     # Model Selection
     model_options = [
-        "qwen-2.5-32b",
-        "llama-3.3-70b-versatile",
-        "llama-3.1-8b-instant",
-        "mixtral-8x7b-32768",
-        "gemma2-9b-it"
+        "qwen/qwen3.6-27b",
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
+        "groq/compound"
     ]
     selected_model = st.selectbox(
         "Groq LLM Model",
